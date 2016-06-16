@@ -76,7 +76,8 @@ public class Extractor {
                 }
 
             } else if (line.startsWith("</doc")) {
-                if (doc.paragraphs.size() > 22) {
+                if (doc.Paragraphs.size() > 22) {
+                    doc.ProceedParagraphs();
                     documents.add(doc);
                 }
                 doc = null;
