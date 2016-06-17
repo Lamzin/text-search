@@ -1,5 +1,3 @@
-import com.sun.org.apache.bcel.internal.generic.IndexedInstruction;
-
 import java.util.*;
 
 public class Main {
@@ -15,7 +13,7 @@ public class Main {
 
     private static void DbInit() {
         Database db = new Database();
-//        db.CreateDocuments();
+        db.CreateDocuments();
         db.CreateWords();
         db.CreateQueue();
     }
@@ -39,16 +37,5 @@ public class Main {
             db.MarkAsDone(doc.Id);
         }
     }
-
-//    private static void ProcessDocuments() {
-//        Extractor extractor = new Extractor("wiki/wikiextractor/text/");
-//        Vector<Document> docs = extractor.GetDocuments();
-//
-//        Database db = new Database();
-//
-//        for (Document doc : docs) {
-//            doc.StartProcessing(db);
-//        }
-//    }
 
 }

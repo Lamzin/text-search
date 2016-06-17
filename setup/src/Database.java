@@ -1,4 +1,5 @@
-import javax.print.Doc;
+import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Vector;
@@ -32,6 +33,13 @@ public class Database {
         return (int) crc.getValue();
     }
 
+    private byte[] intsToBytes(int[] array) {
+        ByteBuffer byteBuffer = ByteBuffer.allocate(array.length * 4);
+        IntBuffer intBuffer = byteBuffer.asIntBuffer();
+        intBuffer.put(array);
+        return byteBuffer.array();
+    }
+
     public void InsertToWords(String documentId, HashMap<String, Vector<Integer>> map) {
         try {
             StringBuilder SQLbuilder = new StringBuilder()
@@ -45,10 +53,16 @@ public class Database {
 
             int i = 0;
             for (HashMap.Entry<String, Vector<Integer>> entry : map.entrySet()) {
+                int[] arr = new int[entry.getValue().size()];
+                for (int index = 0; index < entry.getValue().size(); index++) {
+                    arr[index] = entry.getValue().elementAt(index);
+                }
+                byte[] barr = intsToBytes(arr);
+
                 int hash = StringToCRC32(entry.getKey());
                 statement.setInt(i + 1, hash);
                 statement.setString(i + 2, documentId);
-                statement.setObject(i + 3, entry.getValue());
+                statement.setBytes(i + 3, barr);
                 i += 3;
             }
 
@@ -111,7 +125,7 @@ public class Database {
     public void MarkAsDone(String documentId) {
         try {
             String SQL = new StringBuilder()
-                    .append("INSERT INTO Queue (id, status)   \n")
+                    .append("INSERT INTO Queue (id, status)  \n")
                     .append("     VALUES (?, ?)               \n")
                     .toString();
             PreparedStatement statement = this.conn.prepareStatement(SQL);
