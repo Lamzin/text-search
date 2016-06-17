@@ -1,5 +1,3 @@
-import javax.rmi.CORBA.Util;
-import javax.xml.crypto.Data;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.HashSet;
@@ -48,7 +46,7 @@ public class Main {
     private static String GetInputDataFromFile() {
         String everything = null;
         try {
-            BufferedReader br = new BufferedReader(new FileReader("search/input.txt"));
+            BufferedReader br = new BufferedReader(new FileReader("search/input2.txt"));
             try {
                 StringBuilder sb = new StringBuilder();
                 String line = br.readLine();

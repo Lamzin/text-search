@@ -3,10 +3,16 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
+        long startTime = System.nanoTime();
 
-        DbInit();
+//        DbInit();
+
+//        InsertDocuments();
 
         StartDocumentProcessing();
+
+
+        System.out.println((double) (System.nanoTime() - startTime) / 1000000000.0f);
 
         return;
     }
@@ -21,6 +27,9 @@ public class Main {
     private static void InsertDocuments() {
         Extractor extractor = new Extractor("wiki/wikiextractor/text/");
         Vector<Document> docs = extractor.GetDocuments();
+
+        System.out.println("\n\nSize:");
+        System.out.println(docs.size());
 
         Database db = new Database();
 

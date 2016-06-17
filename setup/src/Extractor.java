@@ -9,9 +9,11 @@ import java.util.regex.Pattern;
 public class Extractor {
 
     private String path;
+    private Database db;
 
     public Extractor(String path) {
         this.path = path;
+        this.db = new Database();
     }
 
     public Vector<Document> GetDocuments() {
@@ -78,7 +80,9 @@ public class Extractor {
             } else if (line.startsWith("</doc")) {
                 if (doc.Paragraphs.size() > 22) {
                     doc.ProceedParagraphs();
-                    documents.add(doc);
+//                    documents.add(doc);
+                    this.db.InsertToDocuments(doc);
+                    System.out.printf("Extract %s\n", doc.Title);
                 }
                 doc = null;
             } else {

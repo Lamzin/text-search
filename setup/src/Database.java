@@ -1,3 +1,4 @@
+import javax.print.Doc;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.sql.*;
@@ -67,9 +68,11 @@ public class Database {
             }
 
             statement.execute();
+            statement.close();
 
         } catch (Exception ex) {
             System.out.println(ex.toString());
+            ex.printStackTrace();
         }
     }
 
@@ -87,9 +90,11 @@ public class Database {
             statement.setString(4, doc.FullText);
             statement.setString(5, doc.CleanFullText);
             statement.execute();
+            statement.close();
             System.out.printf("`%s` inserted!\n", doc.Title);
         } catch (Exception ex) {
             System.out.println(ex.toString());
+            ex.printStackTrace();
         }
     }
 
@@ -115,8 +120,10 @@ public class Database {
                     result.getString("full_text"),
                     result.getString("clean_text")
             );
+            result.close();
         } catch (Exception ex) {
             System.out.println(ex.toString());
+            ex.printStackTrace();
         }
 
         return doc;
@@ -133,9 +140,11 @@ public class Database {
             statement.setString(1, documentId);
             statement.setString(2, "done");
             statement.execute();
+            statement.close();
 //            System.out.printf("`%s` mark as done!\n", documentId);
         } catch (Exception ex) {
             System.out.println(ex.toString());
+            ex.printStackTrace();
         }
     }
 
@@ -152,9 +161,11 @@ public class Database {
                     .append("   PRIMARY KEY (`id`))                \n")
                     .toString();
             statement.execute(SQL);
+            statement.close();
             System.out.println("`Documents` created!");
         } catch (Exception ex) {
             System.out.println(ex.toString());
+            ex.printStackTrace();
         }
     }
 
@@ -169,9 +180,11 @@ public class Database {
                     .append("   INDEX hash_documents(`hash`, `document`)) \n")
                     .toString();
             statement.execute(SQL);
+            statement.close();
             System.out.println("`Words` created!");
         } catch (Exception ex) {
             System.out.println(ex.toString());
+            ex.printStackTrace();
         }
     }
 
@@ -185,9 +198,11 @@ public class Database {
                     .append("   PRIMARY KEY (`id`))             \n")
                     .toString();
             statement.execute(SQL);
+            statement.close();
             System.out.println("`Queue` created!");
         } catch (Exception ex) {
             System.out.println(ex.toString());
+            ex.printStackTrace();
         }
     }
 
