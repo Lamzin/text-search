@@ -13,7 +13,10 @@ hs_err_pid*
 
 # IDEA
 .idea
-*.iml
 
 # wiki
 wiki
+
+#
+*.log
+wordnet/

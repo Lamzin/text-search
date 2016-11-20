@@ -16,7 +16,7 @@ public class Database {
             Class.forName("com.mysql.jdbc.Driver");
 
             this.conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/text-search", "wiki_bot", "31415");
-
+            System.out.println(this.conn);
         } catch (SQLException ex) {
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());

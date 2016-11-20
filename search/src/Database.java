@@ -1,35 +1,21 @@
-import com.sun.deploy.util.StringUtils;
-
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
 
-
 public class Database {
 
-
     private Connection conn;
-
 
     public Database() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-
             this.conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/text-search", "wiki_bot", "31415");
-
-        } catch (SQLException ex) {
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-        } catch (ClassNotFoundException ex) {
-            System.out.println(ex.toString());
         } catch (Exception ex) {
-            System.out.println(ex.toString());
+            System.out.format("stackTrace: %s", ex.getStackTrace().toString());
         }
     }
-
 
     public Vector<Integer> GetDocumentsWithWords(Set<Integer> hashes) {
         Vector<Integer> answer = new Vector<Integer>();
@@ -52,7 +38,7 @@ public class Database {
                     .toString();
             SQL = String.format(
                     SQL,
-                    StringUtils.join(hashesS, ","),
+                    String.join(",", hashesS),
                     hashes.size());
 
             PreparedStatement statementR = this.conn.prepareStatement(SQL);
@@ -66,8 +52,7 @@ public class Database {
             result.close();
 
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-            System.out.println(ex.toString());
+            System.out.println(ex.getStackTrace().toString());
         }
         return answer;
     }
@@ -94,8 +79,8 @@ public class Database {
                     .toString();
             SQL = String.format(
                     SQL,
-                    StringUtils.join(hashesS, ","),
-                    StringUtils.join(documentsS, ","));
+                    String.join(",", hashesS),
+                    String.join(",", documentsS));
 
             PreparedStatement statement = this.conn.prepareStatement(SQL);
             ResultSet result = statement.executeQuery();
@@ -121,8 +106,7 @@ public class Database {
             result.close();
 
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-            System.out.println(ex.toString());
+            System.out.println(ex.getStackTrace().toString());
         }
         return answer;
     }
@@ -149,9 +133,8 @@ public class Database {
                     result.getString("clean_text")
             );
         } catch (Exception ex) {
-            System.out.println(ex.toString());
+            System.out.println(ex.getStackTrace());
         }
-
         return doc;
     }
 

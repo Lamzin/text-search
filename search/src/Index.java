@@ -27,6 +27,8 @@ public class Index {
 
         Vector<Integer> entryPotisions = new Algorithms().KMP(findPositions, sortedPositions);
 
+        System.out.format("Entry positions size: %d\n", entryPotisions.size());
+
         for (Integer item : entryPotisions) {
             System.out.printf("Doc: %d, pos: %d\n", this.documentId, item);
         }

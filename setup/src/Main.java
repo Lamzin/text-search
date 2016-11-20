@@ -5,12 +5,9 @@ public class Main {
     public static void main(String[] args) {
         long startTime = System.nanoTime();
 
-//        DbInit();
-
-//        InsertDocuments();
-
+        DbInit();
+        InsertDocuments();
         StartDocumentProcessing();
-
 
         System.out.println((double) (System.nanoTime() - startTime) / 1000000000.0f);
 
